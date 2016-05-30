@@ -1,23 +1,97 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Bar } from 'react-chartjs'
+
+const BarChart = Bar;
 
 class Result extends Component {
+
+  getVotersData(regions) {
+    let subregions= [],
+        listedVoters= [],
+        voteUsers= [];
+
+    regions.map(region => {
+      subregions.push(region.nama_kab_kota);
+      listedVoters.push(region.pemilih);
+      voteUsers.push(region.pengguna_hak_pilih);
+    });
+
+    return { subregions, listedVoters, voteUsers };
+  }
+
+  convertToInt(string) {
+    let splitted = string.split('.');
+    let concatenated = splitted[0].concat(splitted[1]);
+    let number = parseInt(concatenated);
+
+    return number;
+  }
+
+  getVotesData(regions) {
+    let labels= [],
+        valid= [],
+        invalid= [],
+        total = 0;
+
+    regions.map(region => {
+      labels.push(region.nama_kab_kota);
+      valid.push(region.suara_sah);
+      invalid.push(region.suara_tidak_sah);
+      total += this.convertToInt(region.total_suara);
+    });
+
+    return { labels, valid, invalid, total };
+  }
+
+  getChartData(subregions, label1, voteUsers, label2, listedVoters) {
+    return {
+      labels: subregions,
+      datasets: [{
+        label: label1,
+        fillColor: 'rgba(255,99,132,0.2)',
+        strokeColor: 'rgba(255,99,132,1)',
+        hoverBackgroundColor: 'rgba(255,99,132,0.5)',
+        hoverBorderColor: 'rgba(255,99,132,1)',
+        data: voteUsers,
+      }, {
+        label: label2,
+        fillColor: 'rgba(54,162,235,0.2)',
+        strokeColor: 'rgba(54,162,235,1)',
+        hoverBackgroundColor: 'rgba(54,162,235,0.5)',
+        hoverBorderColor: 'rgba(54,162,235,1)',
+        data: listedVoters
+      }]
+    };
+  }
+
   render() {
-    return (
-      
+
+    let {subregions, listedVoters, voteUsers} = this.getVotersData(this.props.recapitulation);
+    let votersData = this.getChartData(
+        subregions,
+        'Pemilih terdaftar', listedVoters,
+        'Pengguna hak pilih', voteUsers
+      );
+
+    let { labels, valid, invalid, total } = this.getVotesData(this.props.recapitulation);
+    let votesData = this.getChartData(
+        labels,
+        'Suara tidak sah', invalid,
+        'Suara sah', valid
+      );
+
+    return (    
       <div className="result-details">
-        <div className="row small-11 medium-8 large-7 columns">
-          <h3>Details here</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, unde, quam. Possimus cumque voluptatum aut eos, odit dolor facilis fuga quod aliquam ab, corporis deleniti quae quibusdam suscipit consequuntur! Quis.</p>
-          <p>Delectus numquam quisquam nam laboriosam fuga corrupti provident consectetur modi vel magni, sapiente cupiditate ex, nihil exercitationem excepturi nulla quae tenetur ducimus hic eius vero laborum sequi deserunt sint impedit.</p>
-          <p>Iste, corporis accusamus laudantium nulla tempore voluptate, modi eum esse porro consequuntur commodi accusantium quod, voluptatibus explicabo ex velit fugiat perferendis maiores quasi magnam reprehenderit. Dolorum asperiores, iste provident eos.</p>
-          <p>Nemo voluptatum rem nobis ipsa corporis officiis perspiciatis natus sequi quae placeat quidem officia tempore numquam odio voluptates nam recusandae, suscipit pariatur asperiores libero! Saepe tenetur, dolore molestias voluptates quam.</p>
-          <p>Saepe, quasi consequatur laboriosam voluptate commodi quibusdam laborum tempore at enim aspernatur, cumque nihil ipsam. Sequi enim neque quibusdam. Delectus nobis perferendis, laborum voluptatem aperiam culpa unde quia quisquam illum!</p>
-          <p>Dolorum magnam harum ullam consectetur eum. Delectus consequatur praesentium sequi, quae porro fugit fuga quo eligendi tempora accusantium iusto maiores vitae voluptatibus at libero aperiam numquam, hic, quis explicabo id.</p>
-          <p>Ipsum quam nesciunt sapiente modi quia sit a quibusdam dolores, quisquam nobis nostrum alias vero, ducimus, voluptas sunt. Suscipit, sunt minus quis vel maiores facere ad enim veniam, eligendi sint.</p>
-          <p>Qui molestiae cumque est esse non, alias delectus blanditiis quaerat nulla, temporibus sunt! Optio quam sint, mollitia, maiores dicta ipsam! Culpa fuga animi natus dolores repudiandae corrupti molestiae modi reiciendis.</p>
-          <p>Voluptatem nam, facilis. Ex odit libero, eaque optio nemo quod, molestiae quia repellendus, necessitatibus vel dolorum veritatis asperiores. Fugiat esse laboriosam, ipsum dignissimos magni veniam architecto nemo, id sunt omnis.</p>
-          <p>Accusamus voluptatem molestias nisi ducimus, ipsam, sint recusandae praesentium placeat corporis omnis distinctio dolor! Perspiciatis animi quidem libero quae sed quam, unde dolores numquam nostrum labore! Et incidunt rerum, sequi.</p>
+        <div className="row small-11 medium-9 large-8 columns">
+          <h3>Hak Pilih</h3>
+          <BarChart data={votersData} options={{ responsive: true }} redraw />
+
+          <br/>
+
+          <h3>Hasil Rekap Suara</h3>
+          <BarChart data={votesData} options={{ responsive: true }} redraw />
+          <p>Total suara: {total}</p>
         </div>
       </div>
     );
