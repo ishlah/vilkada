@@ -2,13 +2,16 @@ import 'styles/app.scss';
 
 import React from 'react';
 import { Component } from 'react';
+import { connect } from 'react-redux';
 
 import SearchBar from './SearchBar';
-import ResultSplash from './ResultSplash';
-import ResultDetails from './ResultDetails';
+import Result from './Result';
 
-export default class App extends Component {
+class App extends Component {
   render() {
+
+    const { selectedRegion, recapitulation, isFetching} = this.props;
+
     return (
       <div>
         <div className="search-container" id="search">
@@ -19,10 +22,12 @@ export default class App extends Component {
             <SearchBar />
           </div>
         </div>
-        <div className="result-container" id="result">
-          <ResultSplash />
-          <ResultDetails />
-        </div>
+
+        {recapitulation.length > 0 &&
+          <div className="result-container" id="result" style={{ opacity: isFetching ? 0.5 : 1 }}>
+            <Result subregions={recapitulation} region={selectedRegion} />
+          </div>
+        }
         <div className="footer text-center">
           <p>Copyleft &copy; <a href="http://ishlah.co">Muhamad Ishlah</a>. Fork me at <a href="https://github.com/ishlah/rekap-pilkada2015">GitHub</a>.</p>
         </div>
@@ -30,3 +35,21 @@ export default class App extends Component {
     );
   }
 }
+
+function mapStatToProps({ selectedRegion, regionsRecapitulation}) {
+  const {
+    isFetching,
+    recapitulation
+  } = regionsRecapitulation[selectedRegion] || {
+    isFetching: true,
+    recapitulation: []
+  };
+
+  return {
+    selectedRegion,
+    recapitulation,
+    isFetching
+  };
+}
+
+export default connect(mapStatToProps)(App);
