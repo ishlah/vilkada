@@ -11,6 +11,13 @@ body {
 
 h1, h2, h3, h4, h5, h6 { font-family: $title-font; }
 
+h1{font-size: 42px }
+h2{font-size: 36px }
+h3{font-size: 27px }
+h4{font-size: 21px }
+h5{font-size: 16px }
+h6{font-size: 12px }
+
 .flex-center-content {
   display: flex;
   align-items: center;
@@ -39,7 +46,8 @@ h1, h2, h3, h4, h5, h6 { font-family: $title-font; }
 }
 
 .result-splash {
-  height: 100vh;
+
+  padding: 100px 25px 50px 25px;
 
   @extend .flex-center-content;
   
@@ -72,4 +80,14 @@ h1, h2, h3, h4, h5, h6 { font-family: $title-font; }
 .footer {
   padding: 20px;
   background-color: #eee;
+}
+
+@media screen and (min-width: 768px) {
+  h1{font-size: 46px }
+  h2{font-size: 40px }
+  h3{font-size: 31px }
+  h4{font-size: 25px }
+  h5{font-size: 20px }
+  h6{font-size: 16px }
+  .result-splash {height: 100vh;}
 }
