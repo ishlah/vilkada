@@ -31,20 +31,18 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search for party"
+      <div className="row small-11 medium-8 large-7 columns">
+        <form className="input-group" onSubmit={this.onFormSubmit}>
+          <input type="text" className="input-group-field"
+            placeholder="Cari daerah pemilihan ..."
             value={this.state.term}
             onChange={this.onInputChange}
-          />
-          <span className="input-group-btn">
-            <button className="btn btn-primary">Search</button>
-          </span>
-        </div>
-      </form>
+            />
+          <div className="input-group-button">
+            <input type="submit" className="button" value="Cari" />
+          </div>
+        </form>
+      </div>
     );
   }
 }
