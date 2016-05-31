@@ -10,7 +10,7 @@ import Result from './Result';
 class App extends Component {
   render() {
 
-    const { selectedRegion, recapitulation, isFetching} = this.props;
+    const { selectedRegion, recapitulation, isFetching, regionCandidates} = this.props;
 
     return (
       <div>
@@ -25,7 +25,10 @@ class App extends Component {
 
         {recapitulation.length > 0 &&
           <div className="result-container" id="result" style={{ opacity: isFetching ? 0.5 : 1 }}>
-            <Result subregions={recapitulation} region={selectedRegion} />
+            <Result 
+              subregions={recapitulation} 
+              region={selectedRegion}
+              candidates={regionCandidates} />
           </div>
         }
         <div className="footer text-center">
@@ -36,7 +39,12 @@ class App extends Component {
   }
 }
 
-function mapStatToProps({ selectedRegion, regionsRecapitulation}) {
+function mapStatToProps({ 
+  selectedRegion,
+  selectedRegionId,
+  regionsRecapitulation,
+  candidates
+}) {
   const {
     isFetching,
     recapitulation
@@ -45,10 +53,13 @@ function mapStatToProps({ selectedRegion, regionsRecapitulation}) {
     recapitulation: []
   };
 
+  const regionCandidates = candidates[selectedRegionId]
+
   return {
     selectedRegion,
     recapitulation,
-    isFetching
+    isFetching,
+    regionCandidates
   };
 }
 

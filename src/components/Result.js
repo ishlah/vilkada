@@ -7,11 +7,15 @@ import ResultDetails from './ResultDetails';
 export default class Result extends Component {
 
   convertToInt(string) {
-    let splitted = string.split('.');
-    let concatenated = splitted[0].concat(splitted[1]);
-    let number = parseInt(concatenated);
+    if (string !== null) {
+      let splitted = string.split('.');
+      let concatenated = splitted[0].concat(splitted[1]);
+      let number = parseInt(concatenated);
 
-    return number;
+      return number
+    }
+
+    return string;
   }
 
   getResultData(regions) {

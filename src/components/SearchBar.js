@@ -1,7 +1,12 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchRegion, fetchRegionList } from '../actions/index';
+import { 
+  fetchRegion,
+  fetchInitialRegions,
+  getRegionDetails
+} from '../actions/index';
 
 class SearchBar extends Component {
 
@@ -11,18 +16,42 @@ class SearchBar extends Component {
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.getRegionId = this.getRegionId.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchRegionList();
+    this.props.fetchInitialRegions();
   }
 
   onFormSubmit(event) {
     event.preventDefault();
 
-    // fetch location
-    this.props.fetchRegion(this.state.term);
+    //  1 - 3 get regionId
+    let region = this.state.term,
+        regionId = this.getRegionId();
+
+    // 4. dispatch 'getRegionDetails' action creator
+    this.props.getRegionDetails(region, regionId);
+    // this.props.fetchRegion(region);
+
+    // remove the term from the search field
     this.setState({ term: '' });
+  }
+
+  getRegionId() {
+    const nameIds = this.props.regionList.nameIds;
+    let searchTerm = '',
+        regionId = null;
+
+    // fetch region name and region id
+    // 1. find if the term has 'kabupaten' on it
+    // 2. convert 'kabupaten into kab.'
+    searchTerm = this.state.term.replace(/kabupaten/i, 'kab.');
+
+    // 3. based on this new term, find region id in the 'regionList'
+    regionId = _.findIndex(nameIds, {nama: searchTerm.toUpperCase()});
+    
+    return nameIds[regionId].id;
   }
 
   onInputChange(event) {
@@ -48,7 +77,11 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchRegion, fetchRegionList }, dispatch);
+  return bindActionCreators({
+    fetchRegion,
+    fetchInitialRegions,
+    getRegionDetails
+  }, dispatch);
 }
 
 function mapStateToProps({regionList}) {
