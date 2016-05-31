@@ -36,7 +36,7 @@ class App extends Component {
   }
 }
 
-function mapStatToProps({ selectedRegion, regionsRecapitulation, candidates}) {
+function mapStatToProps({ selectedRegion, selectedRegionId, regionsRecapitulation, candidates}) {
   const {
     isFetching,
     recapitulation
@@ -45,11 +45,13 @@ function mapStatToProps({ selectedRegion, regionsRecapitulation, candidates}) {
     recapitulation: []
   };
 
+  const regionCandidates = candidates[selectedRegionId]
+
   return {
     selectedRegion,
     recapitulation,
     isFetching,
-    candidates
+    regionCandidates
   };
 }
 
