@@ -7,6 +7,11 @@ import ResultDetails from './ResultDetails';
 export default class Result extends Component {
 
   convertToInt(string) {
+    /**
+    * Convert string of recapitulation into number
+    * i.e: "32.321" into 32321.
+    * try numeral for concise codes!
+    */
     if (string !== null) {
       let splitted = string.split('.');
       let concatenated = splitted[0].concat(splitted[1]);
@@ -19,7 +24,7 @@ export default class Result extends Component {
   }
 
   recostructCandidatesScore(candidatesVotes){
-    /* 
+    /*
     * Reconstruct candidates score.
     * return array of each region score for each candidate.
     */
@@ -40,6 +45,11 @@ export default class Result extends Component {
   }
 
   getResultData(regions) {
+    /*
+    * Populated recapitulation data for easy visualisation
+    * in the children components
+    */
+
     let subregions= [];
     let candidatesVotesResult = [];
     
@@ -63,6 +73,14 @@ export default class Result extends Component {
       totalVotes += this.convertToInt(region.total_suara);
       candidatesVotesResult.push(region.perolehan_suara.split(' '));
     });
+    
+    // Total listed voters (total pemilih), and voters data
+    totalListedVoters = _.sum(listedVoters);
+    totalVoters = _.sum(voters);
+
+    // Total valid and invalid votes
+    totalValidVotes = _.sum(valid);
+    totalInvalidVotes = _.sum(invalid);
 
     // remove formatting number '[1]' from candidateVote
     let tempArr = [], candidatesVotes = [];
@@ -76,20 +94,12 @@ export default class Result extends Component {
 
     // recostruct candidates score
     const candidatesScore = this.recostructCandidatesScore(candidatesVotes);
-    console.log(candidatesScore)
-
-    // Total listed voters (total pemilih), and voters data
-    totalListedVoters = _.sum(listedVoters);
-    totalVoters = _.sum(voters);
-
-    // Total valid and invalid votes
-    totalValidVotes = _.sum(valid);
-    totalInvalidVotes = _.sum(invalid);
-
+    
     return {
       subregions,
       listedVoters, voters, totalListedVoters, totalVoters,
-      valid, invalid, totalVotes, totalValidVotes, totalInvalidVotes
+      valid, invalid, totalVotes, totalValidVotes, totalInvalidVotes,
+      candidatesScore
     };
   }
 
