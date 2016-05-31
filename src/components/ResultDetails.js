@@ -41,11 +41,13 @@ export default class ResultDetails extends Component {
       'Suara sah', this.props.chartData.valid
     );
 
+    const candidates = this.props.candidates;
+
     return (
       <div className="result-details">
         <div className="row small-11 medium-9 large-8 columns">
           <h3>Kandidat</h3>
-          <Candidates />
+          <Candidates candidates={candidates} />
 
           <h3>Hak Pilih</h3>
           <BarChart data={rightToVote} options={{responsive: true}} redraw />

@@ -55,12 +55,13 @@ export default class Result extends Component {
   }
 
   render() {
-    const chartData = this.getResultData(this.props.subregions)
+    const chartData = this.getResultData(this.props.subregions);
+    const candidates = this.props.candidates;
 
     return (
       <div className="result-container" id="result">
         <ResultSplash region={this.props.region} chartData={chartData} />
-        <ResultDetails chartData={chartData} />
+        <ResultDetails chartData={chartData} candidates={candidates} />
       </div>
     );
   }
