@@ -68,8 +68,6 @@ function regionsRecapitulation(state = {}, action) {
     default:
       return state;
   }
-
-  return state;
 }
 
 function candidates(state = {}, action) {

@@ -25,8 +25,8 @@ class App extends Component {
 
         {recapitulation.length > 0 &&
           <div className="result-container" id="result" style={{ opacity: isFetching ? 0.5 : 1 }}>
-            <Result 
-              subregions={recapitulation} 
+            <Result
+              subregions={recapitulation}
               region={selectedRegion}
               candidates={regionCandidates} />
           </div>
@@ -39,7 +39,7 @@ class App extends Component {
   }
 }
 
-function mapStatToProps({ 
+function mapStatToProps({
   selectedRegion,
   selectedRegionId,
   regionsRecapitulation,

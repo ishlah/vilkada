@@ -22,7 +22,7 @@ export const RECEIVE_CANDIDATES = 'RECEIVE_CANDIDATES';
 export function fetchInitialRegions() {
   return (dispatch => Promise.all([
     dispatch(fetchRegionList()),
-    dispatch(fetchRegionListID()),
+    dispatch(fetchRegionListID())
   ]));
 }
 
@@ -89,7 +89,6 @@ export function receiveC1Recap(region, json) {
 }
 
 export function receiveCandidates(regionId, json) {
-  console.log(json.data.data.results.candidates);
   return {
     type: RECEIVE_CANDIDATES,
     regionId,
