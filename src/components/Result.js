@@ -20,6 +20,7 @@ export default class Result extends Component {
 
   getResultData(regions) {
     let subregions= [];
+    let candidatesVotesResult = [];
     
     let listedVoters= [],
         voters= [],
@@ -39,7 +40,18 @@ export default class Result extends Component {
       valid.push(this.convertToInt(region.suara_sah));
       invalid.push(this.convertToInt(region.suara_tidak_sah));
       totalVotes += this.convertToInt(region.total_suara);
+      candidatesVotesResult.push(region.perolehan_suara.split(' '));
     });
+
+    // remove formatting number '[1]' from candidateVote
+    let tempArr = [], candidatesVotes = [];
+    candidatesVotesResult.map(item => {
+      item.map((val, id) => {
+        if(id%2 !== 0) tempArr.push(val)
+      })
+      candidatesVotes.push(tempArr)
+      tempArr = []
+    })
 
     totalListedVoters = _.sum(listedVoters);
     totalVoters = _.sum(voters);

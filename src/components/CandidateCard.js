@@ -6,7 +6,7 @@ export default class CandidateCard extends Component {
       return (<p>Caleg independen, tidak ada dukungan partai</p>);
     return (
       <ul>
-        {pendukung.map((partai, id) => <li>{partai}</li>)}
+        {pendukung.map((partai, id) => <li key={id}>{partai}</li>)}
       </ul>
     );
   }
