@@ -10,7 +10,7 @@ import Result from './Result';
 class App extends Component {
   render() {
 
-    const { selectedRegion, recapitulation, isFetching, regionCandidates} = this.props;
+    const { selectedRegion, recapitulation, isFetching} = this.props;
 
     return (
       <div>
@@ -28,7 +28,7 @@ class App extends Component {
             <Result
               subregions={recapitulation}
               region={selectedRegion}
-              candidates={regionCandidates} />
+              />
           </div>
         }
         <div className="footer text-center">
@@ -41,9 +41,7 @@ class App extends Component {
 
 function mapStatToProps({
   selectedRegion,
-  selectedRegionId,
-  regionsRecapitulation,
-  candidates
+  regionsRecapitulation
 }) {
   const {
     isFetching,
@@ -53,13 +51,10 @@ function mapStatToProps({
     recapitulation: []
   };
 
-  const regionCandidates = candidates[selectedRegionId]
-
   return {
     selectedRegion,
     recapitulation,
-    isFetching,
-    regionCandidates
+    isFetching
   };
 }
 

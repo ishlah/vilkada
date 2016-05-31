@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Bar } from 'react-chartjs'
+import { Bar } from 'react-chartjs';
+import Candidates from './Candidates';
 
 const BarChart = Bar;
 
-export default class Result extends Component {
+export default class ResultDetails extends Component {
 
   getChartData(labels, label1, data1, label2, data2) {
     return {
@@ -43,6 +44,9 @@ export default class Result extends Component {
     return (
       <div className="result-details">
         <div className="row small-11 medium-9 large-8 columns">
+          <h3>Kandidat</h3>
+          <Candidates />
+
           <h3>Hak Pilih</h3>
           <BarChart data={rightToVote} options={{responsive: true}} redraw />
           
