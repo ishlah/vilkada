@@ -95,11 +95,23 @@ export default class Result extends Component {
     // recostruct candidates score
     const candidatesScore = this.recostructCandidatesScore(candidatesVotes);
     
+    // get total scores for each candidate and total scores
+    let totalScoresEachCandidate = [],
+        totalScores = 0;
+
+    for (var i = 0; i < this.props.candidates.length; i++) {
+      totalScoresEachCandidate.push(_.sum(candidatesScore[i]));
+    }
+
+    totalScores = _.sum(totalScoresEachCandidate);
+
+
+    
     return {
       subregions,
       listedVoters, voters, totalListedVoters, totalVoters,
       valid, invalid, totalVotes, totalValidVotes, totalInvalidVotes,
-      candidatesScore
+      candidatesScore, totalScoresEachCandidate, totalScores
     };
   }
 
