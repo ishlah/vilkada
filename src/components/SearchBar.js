@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,6 +23,25 @@ class SearchBar extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
+
+    const nameIds = this.props.regionList.nameIds;
+    let searchTerm = '',
+        regionId = null,
+        regId = null;
+
+    // fetch region name and region id
+    // 1. find if the term has 'kabupaten' on it
+    // 2. convert 'kabupaten into kab.'
+    searchTerm = this.state.term.replace(/kabupaten/i, 'kab.');
+
+    // 3. based on this new term, find region id in the 'regionList'
+    regionId = _.findIndex(nameIds, {nama: searchTerm.toUpperCase()});
+    regId = nameIds[regionId].id;
+
+    console.log(regId);
+
+
+    // 4. dispatch 'getRegionDetails' action creator
 
     // fetch location
     this.props.fetchRegion(this.state.term);
