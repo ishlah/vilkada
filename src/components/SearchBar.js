@@ -15,6 +15,7 @@ class SearchBar extends Component {
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.getRegionId = this.getRegionId.bind(this);
   }
 
   componentDidMount() {
@@ -24,10 +25,22 @@ class SearchBar extends Component {
   onFormSubmit(event) {
     event.preventDefault();
 
+    let region = this.state.term,
+        regionId = this.getRegionId();
+
+    console.log(region, regionId);
+
+    // 4. dispatch 'getRegionDetails' action creator
+    this.props.fetchRegion(region);
+
+    // remove the term from the search field
+    this.setState({ term: '' });
+  }
+
+  getRegionId() {
     const nameIds = this.props.regionList.nameIds;
     let searchTerm = '',
-        regionId = null,
-        regId = null;
+        regionId = null;
 
     // fetch region name and region id
     // 1. find if the term has 'kabupaten' on it
@@ -36,16 +49,8 @@ class SearchBar extends Component {
 
     // 3. based on this new term, find region id in the 'regionList'
     regionId = _.findIndex(nameIds, {nama: searchTerm.toUpperCase()});
-    regId = nameIds[regionId].id;
-
-    console.log(regId);
-
-
-    // 4. dispatch 'getRegionDetails' action creator
-
-    // fetch location
-    this.props.fetchRegion(this.state.term);
-    this.setState({ term: '' });
+    
+    return nameIds[regionId].id;
   }
 
   onInputChange(event) {
