@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { 
   fetchRegion,
-  fetchInitialRegions
+  fetchInitialRegions,
+  getRegionDetails
 } from '../actions/index';
 
 class SearchBar extends Component {
@@ -25,13 +26,13 @@ class SearchBar extends Component {
   onFormSubmit(event) {
     event.preventDefault();
 
+    //  1 - 3 get regionId
     let region = this.state.term,
         regionId = this.getRegionId();
 
-    console.log(region, regionId);
-
     // 4. dispatch 'getRegionDetails' action creator
-    this.props.fetchRegion(region);
+    this.props.getRegionDetails(region, regionId);
+    // this.props.fetchRegion(region);
 
     // remove the term from the search field
     this.setState({ term: '' });
@@ -78,7 +79,8 @@ class SearchBar extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchRegion,
-    fetchInitialRegions
+    fetchInitialRegions,
+    getRegionDetails
   }, dispatch);
 }
 

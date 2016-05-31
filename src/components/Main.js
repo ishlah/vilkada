@@ -36,7 +36,7 @@ class App extends Component {
   }
 }
 
-function mapStatToProps({ selectedRegion, regionsRecapitulation}) {
+function mapStatToProps({ selectedRegion, regionsRecapitulation, candidates}) {
   const {
     isFetching,
     recapitulation
@@ -48,7 +48,8 @@ function mapStatToProps({ selectedRegion, regionsRecapitulation}) {
   return {
     selectedRegion,
     recapitulation,
-    isFetching
+    isFetching,
+    candidates
   };
 }
 
