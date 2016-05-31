@@ -1,13 +1,19 @@
 import { combineReducers } from 'redux';
 import {
-  FETCH_REGION_LIST, SEARCH_REGION,
+  FETCH_REGION_LIST, FETCH_REGION_LIST_ID, SEARCH_REGION,
   REQUEST_C1_RECAP, RECEIVE_C1_RECAP
 } from '../actions/index';
 
-function regionList(state = [], action) {
+function regionList(state = {}, action) {
   switch (action.type) {
     case FETCH_REGION_LIST:
-      return action.payload;
+      return Object.assign({}, state, {
+        names: action.payload
+      });
+    case FETCH_REGION_LIST_ID:
+      return Object.assign({}, state, {
+        nameIds: action.payload
+      });
     default:
       return state;
   }
