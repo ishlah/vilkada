@@ -1,20 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import numeral from 'numeral';
+import numeral, { colors } from '../utils/index';
 import { Doughnut } from 'react-chartjs';
 
 const DoughnutChart = Doughnut;
-const colors = [
-'#b2182b',
-'#d6604d',
-'#f4a582',
-'#fddbc7',
-'#f7f7f7',
-'#d1e5f0',
-'#92c5de',
-'#4393c3',
-'#2166ac'
-];
 
 export default class ResultSplash extends Component {
 

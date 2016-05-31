@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import numeral, { colors } from '../utils/index';
 
 export default class CandidateCard extends Component {
   renderPendukung(pendukung){
