@@ -109,8 +109,13 @@ export default class Result extends Component {
 
     return (
       <div className="result-container" id="result">
-        <ResultSplash region={this.props.region} chartData={chartData} />
-        <ResultDetails chartData={chartData} candidates={candidates} />
+        <ResultSplash
+          region={this.props.region}
+          chartData={chartData}
+          candidates={candidates} />
+        <ResultDetails
+          chartData={chartData}
+          candidates={candidates} />
       </div>
     );
   }
