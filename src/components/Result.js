@@ -18,6 +18,27 @@ export default class Result extends Component {
     return string;
   }
 
+  recostructCandidatesScore(candidatesVotes){
+    /* 
+    * Reconstruct candidates score.
+    * return array of each region score for each candidate.
+    */
+    let candScore = {}
+
+    this.props.candidates.map((val, id) => {
+      candScore[id] = []
+      candidatesVotes.map(votes => {
+        votes.map((score, id3) => {
+          if (id3 === id) {
+            candScore[id].push(this.convertToInt(score))
+          }
+        })
+      })
+    })
+
+    return candScore;
+  }
+
   getResultData(regions) {
     let subregions= [];
     let candidatesVotesResult = [];
@@ -53,9 +74,15 @@ export default class Result extends Component {
       tempArr = []
     })
 
+    // recostruct candidates score
+    const candidatesScore = this.recostructCandidatesScore(candidatesVotes);
+    console.log(candidatesScore)
+
+    // Total listed voters (total pemilih), and voters data
     totalListedVoters = _.sum(listedVoters);
     totalVoters = _.sum(voters);
 
+    // Total valid and invalid votes
     totalValidVotes = _.sum(valid);
     totalInvalidVotes = _.sum(invalid);
 
