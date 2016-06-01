@@ -8,6 +8,8 @@ import {
   getRegionDetails
 } from '../actions/index';
 
+
+
 class SearchBar extends Component {
 
   constructor(props) {
@@ -63,7 +65,7 @@ class SearchBar extends Component {
       <div className="row small-11 medium-8 large-7 columns">
         <form className="input-group" onSubmit={this.onFormSubmit}>
           <input type="text" className="input-group-field"
-            placeholder="Cari daerah pemilihan ..."
+            placeholder="Cari daerah pemilihan. contoh: kabupaten gowa"
             value={this.state.term}
             onChange={this.onInputChange}
             />
