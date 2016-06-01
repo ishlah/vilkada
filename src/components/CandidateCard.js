@@ -39,14 +39,13 @@ export default class CandidateCard extends Component {
 
     
     return (
-      <div className="small-12 medium-4 columns" data-equalizer-watch="card-parent">
       <div className="card" data-equalizer-watch="card">
         <div data-equalizer-watch="card">
-          <img src="https://placeimg.com/640/480/people" alt=""/>
+          <img src="images/user_placeholder.png" alt=""/>
         </div>
         <div className="card-body" data-equalizer-watch="card">
           {id === data.winner && <span className="warning label">Pemenang</span>}
-          <h5>{paslon[0].nama}<br/>{paslon[1].nama}</h5>
+          <h4 className="paslon">{paslon[0].nama}<br/>{paslon[1].nama}</h4>
           <div className="no-urut">{noUrut}</div>
           <hr/>
           <h6>Dukungan</h6>
@@ -72,7 +71,7 @@ export default class CandidateCard extends Component {
             </dl>
         </div>
       </div>
-      </div>
+      
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'styles/foundation.min.css';
 import 'styles/app.scss';
 
 import React from 'react';

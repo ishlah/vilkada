@@ -1,6 +1,8 @@
 $title-font: 'Pathway Gothic One', sans-serif;
 $body-font: 'Palanquin', sans-serif;
-
+$primary-color: #d6604d;
+$secondary-color: #f4a582;
+$tertiary-color: #b2182b;
 
 html,
 body {
@@ -88,21 +90,42 @@ h6{font-size: 12px }
   background-color: #eee;
 }
 
+.candidate-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card {
+  flex: 1 1 100%;
+  margin: 10px;
   
   h6 { text-transform: uppercase; }
+  border: 1px solid #eee;
+  background-color: #eee;
 
   .card-body {
-    border: 1px solid #eee;
-    padding: 15px;
+    padding: 20px;
     position: relative;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+
+    .paslon { margin-top: 15px;}
+
+    .label {
+      position: absolute;
+      top: -20px;
+      height: 40px;
+      padding: 8px 15px;
+      font-size: 18px; 
+      border-radius: 25px;
+    }
 
     .no-urut {
       position: absolute;
       top: -25px;
       right: 15px;
       padding:0 5px;
-      background-color: #000;
+      background-color: $primary-color;
       color: #fff;
       font-size: 28px;
       font-weight: bold;
@@ -113,10 +136,8 @@ h6{font-size: 12px }
     }
   }
   .card-footer {
-    padding: 15px;
-    border: 1px solid #eee;
+    padding: 20px;
     border-top: none;
-    background-color: #eee;
 
     .percentage { text-align: center; }
     .number { 
@@ -125,6 +146,30 @@ h6{font-size: 12px }
     }
   }
 }
+
+.candidate-score-chart {
+  margin-top: 15px;
+}
+
+.button {
+  background-color: $primary-color;
+  &:focus,
+  &:hover { background-color: $tertiary-color; }
+}
+
+.input-group {
+  input {
+    border-top-left-radius: 20px !important;
+    border-bottom-left-radius: 20px !important;
+    padding-left: 1rem !important;
+  }
+  .button {
+    border-top-right-radius: 20px !important;
+    border-bottom-right-radius: 20px !important; 
+    padding-right: 1.5rem !important;
+  }
+}
+
 
 .capitalize { text-transform: capitalize; }
 
@@ -136,4 +181,5 @@ h6{font-size: 12px }
   h5{font-size: 20px }
   h6{font-size: 16px }
   .result-splash {height: 100vh;}
+  .card { flex: 1 1 30%;}
 }
