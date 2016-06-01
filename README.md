@@ -29,6 +29,10 @@ First think first, please make sure you have node and npm installed on your mach
   
 - Open to your favorite browser and go to the `localhost:8000`.
 
+## TODO
+
+Please have a look at [TODO.md](https://github.com/ishlah/vilkada/blob/master/TODO.md) file
+
 ## License
 
 [MIT license.](https://opensource.org/licenses/MIT)
