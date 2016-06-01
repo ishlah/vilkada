@@ -36,7 +36,7 @@ export default class Candidates extends Component {
     
     return (
       <div className="candidates">
-        <div className="row small-centered align-center" data-equalizer data-equalizer-on="medium">
+        <div className="candidate-cards" data-equalizer data-equalizer-on="medium">
           {candidates.map((candidate, id) =>
             <CandidateCard
               key={id}
@@ -46,7 +46,7 @@ export default class Candidates extends Component {
           )}
         </div>
         <div className="candidate-score-chart">
-
+          <h4>Grafik Perolehan Pasangan Calon </h4>
           <BarChart data={scores} options={{responsive: true}} redraw />
 
         </div>
