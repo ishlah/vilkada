@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs';
 import Candidates from './Candidates';
+import { colors } from '../utils/index';
 
 const BarChart = Bar;
 
@@ -11,17 +12,11 @@ export default class ResultDetails extends Component {
       labels: labels,
       datasets: [{
         label: label1,
-        fillColor: 'rgba(255,99,132,0.2)',
-        strokeColor: 'rgba(255,99,132,1)',
-        hoverBackgroundColor: 'rgba(255,99,132,0.5)',
-        hoverBorderColor: 'rgba(255,99,132,1)',
+        fillColor: colors[2],
         data: data1
       }, {
         label: label2,
-        fillColor: 'rgba(54,162,235,0.2)',
-        strokeColor: 'rgba(54,162,235,1)',
-        hoverBackgroundColor: 'rgba(54,162,235,0.5)',
-        hoverBorderColor: 'rgba(54,162,235,1)',
+        fillColor: colors[3],
         data: data2
       }]
     };
