@@ -19,8 +19,8 @@
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false"
   },
-  "repository": "",
-  "keywords": [],
+  "repository": "https://github.com/ishlah/vilkada/",
+  "keywords": ["pilkada api", "vilkada", "reactjs"],
   "author": "Muhamad Ishlah",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
