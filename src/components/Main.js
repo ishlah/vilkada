@@ -33,7 +33,7 @@ class App extends Component {
           </div>
         }
         <div className="footer text-center">
-          <p>Copyleft &copy; <a href="http://ishlah.co">Muhamad Ishlah</a>. Fork me at <a href="https://github.com/ishlah/rekap-pilkada2015">GitHub</a>.</p>
+          <p>Crafted by <a href="http://ishlah.co">Muhamad Ishlah</a>. Fork me at <a href="https://github.com/ishlah/rekap-pilkada2015">GitHub</a>.</p>
         </div>
       </div>
     );
