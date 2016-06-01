@@ -20,7 +20,7 @@
     "test:watch": "karma start --autoWatch=true --singleRun=false"
   },
   "repository": "https://github.com/ishlah/vilkada/",
-  "keywords": ["pemilu api"],
+  "keywords": ["pilkada api", "vilkada", "reactjs"],
   "author": "Muhamad Ishlah",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
