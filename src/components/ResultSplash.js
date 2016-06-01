@@ -1,22 +1,45 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import numeral from 'numeral';
+import numeral, { colors } from '../utils/index';
 import { Doughnut } from 'react-chartjs';
 
 const DoughnutChart = Doughnut;
 
 export default class ResultSplash extends Component {
 
+  getCandidatesDoughnut(number, scores) {
+
+    let data = [],
+        totalScores = [];
+
+    
+    for (var i = 0; i < number; i++) {
+      data.push(
+        {
+          color: colors[i],
+          highlight: colors[i+1],
+          label: `No. urut ${i+1}`,
+          value: _.sum(scores[i])
+        }
+      );
+
+      totalScores.push(_.sum(scores[i]));
+    }
+
+    return {totalScores, data};
+  }
+
   getDoughnutData(label1, data1, label2, data2) {
     return [
       {
-        color: '#2199e8',
-        highlight: '#2199e6',
+        color: colors[1],
+        highlight: colors[2],
         label: label1,
         value: data1
       },
       {
-        color: '#fff',
-        highlight: '#eee',
+        color: colors[0],
+        highlight: colors[1],
         label: label2,
         value: data2
       }
@@ -24,10 +47,16 @@ export default class ResultSplash extends Component {
   }
 
   toPercentage(number){
+    /**
+    * Convert number into percentage
+    */
     return numeral(number).format('0.00%');
   }
 
   numToString(number) {
+    /**
+    * Convert number into formatted string (12000 -> 12.000)
+    */
     return numeral(number).format('0,0');
   }
 
@@ -42,6 +71,13 @@ export default class ResultSplash extends Component {
       'Sah', doughnutData.totalValidVotes,
       'Tidak Sah', doughnutData.totalInvalidVotes
     );
+    const candidates = this.props.candidates,
+          candidatesScore = doughnutData.candidatesScore,
+          numOfCandidates = candidates.length;
+
+    const candidatesScoreDoughnut = this.getCandidatesDoughnut(numOfCandidates, candidatesScore);
+    const theWinningScore = _.max(candidatesScoreDoughnut.totalScores);
+    const theWinner = _.indexOf(candidatesScoreDoughnut.totalScores, theWinningScore) + 1;
 
     return (
       <div className="result-splash"
@@ -67,10 +103,10 @@ export default class ResultSplash extends Component {
               </div>
             </div>
             <div className="small-12 medium-4 large-4 columns">
-              <DoughnutChart data={voters} options={{responsive: true}} />
+              <DoughnutChart data={candidatesScoreDoughnut.data} options={{responsive: true}} />
               <div className="text-info">
-                <h2>85.434 <small>suara</small></h2>
-                <p>diperoleh kandidat no urut 1<br/>(Pemenang)</p>
+                <h2>{this.toPercentage(theWinningScore/_.sum(candidatesScoreDoughnut.totalScores))} <small>suara</small></h2>
+                <p>diperoleh kandidat<br/>no urut <strong>{theWinner}</strong></p>
               </div>
             </div>
           </div>

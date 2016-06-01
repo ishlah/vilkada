@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import _ from 'lodash';
+import React, { Component } from 'react';
 
 import ResultSplash from './ResultSplash';
 import ResultDetails from './ResultDetails';
@@ -7,6 +7,11 @@ import ResultDetails from './ResultDetails';
 export default class Result extends Component {
 
   convertToInt(string) {
+    /**
+    * Convert string of recapitulation into number
+    * i.e: "32.321" into 32321.
+    * try numeral for concise codes!
+    */
     if (string !== null) {
       let splitted = string.split('.');
       let concatenated = splitted[0].concat(splitted[1]);
@@ -18,8 +23,35 @@ export default class Result extends Component {
     return string;
   }
 
+  recostructCandidatesScore(candidatesVotes){
+    /*
+    * Reconstruct candidates score.
+    * return array of each region score for each candidate.
+    */
+    let candScore = {}
+
+    this.props.candidates.map((val, id) => {
+      candScore[id] = []
+      candidatesVotes.map(votes => {
+        votes.map((score, id3) => {
+          if (id3 === id) {
+            candScore[id].push(this.convertToInt(score))
+          }
+        })
+      })
+    })
+
+    return candScore;
+  }
+
   getResultData(regions) {
+    /*
+    * Populated recapitulation data for easy visualisation
+    * in the children components
+    */
+
     let subregions= [];
+    let candidatesVotesResult = [];
     
     let listedVoters= [],
         voters= [],
@@ -39,28 +71,65 @@ export default class Result extends Component {
       valid.push(this.convertToInt(region.suara_sah));
       invalid.push(this.convertToInt(region.suara_tidak_sah));
       totalVotes += this.convertToInt(region.total_suara);
+      candidatesVotesResult.push(region.perolehan_suara.split(' '));
     });
-
+    
+    // Total listed voters (total pemilih), and voters data
     totalListedVoters = _.sum(listedVoters);
     totalVoters = _.sum(voters);
 
+    // Total valid and invalid votes
     totalValidVotes = _.sum(valid);
     totalInvalidVotes = _.sum(invalid);
+
+    // remove formatting number '[1]' from candidateVote
+    let tempArr = [], candidatesVotes = [];
+    candidatesVotesResult.map(item => {
+      item.map((val, id) => {
+        if(id%2 !== 0) tempArr.push(val)
+      })
+      candidatesVotes.push(tempArr)
+      tempArr = []
+    })
+
+    // recostruct candidates score
+    const candidatesScore = this.recostructCandidatesScore(candidatesVotes);
+    
+    // get total scores for each candidate and total scores
+    let totalScoresEachCandidate = [],
+        totalScores = 0;
+
+    for (var i = 0; i < this.props.candidates.length; i++) {
+      totalScoresEachCandidate.push(_.sum(candidatesScore[i]));
+    }
+
+    totalScores = _.sum(totalScoresEachCandidate);
+
+    // the winner id
+    const winner = _.indexOf(totalScoresEachCandidate, _.max(totalScoresEachCandidate));
 
     return {
       subregions,
       listedVoters, voters, totalListedVoters, totalVoters,
-      valid, invalid, totalVotes, totalValidVotes, totalInvalidVotes
+      valid, invalid, totalVotes, totalValidVotes, totalInvalidVotes,
+      candidatesScore, totalScoresEachCandidate, totalScores, winner
     };
   }
 
   render() {
-    const chartData = this.getResultData(this.props.subregions)
+    const chartData = this.getResultData(this.props.subregions);
+    const candidates = this.props.candidates;
 
     return (
       <div className="result-container" id="result">
-        <ResultSplash region={this.props.region} chartData={chartData} />
-        <ResultDetails chartData={chartData} />
+        <ResultSplash
+          region={this.props.region}
+          chartData={chartData}
+          candidates={candidates} />
+        <ResultDetails
+          region={this.props.region}
+          chartData={chartData}
+          candidates={candidates} />
       </div>
     );
   }
