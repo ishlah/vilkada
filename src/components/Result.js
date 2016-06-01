@@ -127,6 +127,7 @@ export default class Result extends Component {
           chartData={chartData}
           candidates={candidates} />
         <ResultDetails
+          region={this.props.region}
           chartData={chartData}
           candidates={candidates} />
       </div>
