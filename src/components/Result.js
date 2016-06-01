@@ -105,13 +105,14 @@ export default class Result extends Component {
 
     totalScores = _.sum(totalScoresEachCandidate);
 
+    // the winner id
+    const winner = _.indexOf(totalScoresEachCandidate, _.max(totalScoresEachCandidate));
 
-    
     return {
       subregions,
       listedVoters, voters, totalListedVoters, totalVoters,
       valid, invalid, totalVotes, totalValidVotes, totalInvalidVotes,
-      candidatesScore, totalScoresEachCandidate, totalScores
+      candidatesScore, totalScoresEachCandidate, totalScores, winner
     };
   }
 

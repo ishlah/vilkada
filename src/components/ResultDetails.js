@@ -47,7 +47,7 @@ export default class ResultDetails extends Component {
       <div className="result-details">
         <div className="row small-11 medium-9 large-8 columns">
           <h3>Kandidat</h3>
-          <Candidates candidates={candidates} />
+          <Candidates candidates={candidates} data={this.props.chartData} />
 
           <h3>Hak Pilih</h3>
           <BarChart data={rightToVote} options={{responsive: true}} redraw />

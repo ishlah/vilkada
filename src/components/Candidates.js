@@ -13,7 +13,9 @@ export default class Candidates extends Component {
           {candidates.map((candidate, id) =>
             <CandidateCard
               key={id}
-              candidate={candidate} />
+              id={id}
+              candidate={candidate}
+              data={this.props.data} />
           )}
         </div>
       </div>
