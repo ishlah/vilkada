@@ -33,8 +33,6 @@ export default class Candidates extends Component {
           number = candidates.length,
           scores = this.getChartData(number, this.props.data);
 
-    console.log(scores)
-
     
     return (
       <div className="candidates">

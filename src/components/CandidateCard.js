@@ -12,6 +12,10 @@ export default class CandidateCard extends Component {
     );
   }
 
+  formatNumber(string) {
+    return numeral(string).format('0,0');
+  }
+
   render() {
 
     const id = this.props.id;
@@ -23,7 +27,15 @@ export default class CandidateCard extends Component {
     
     const data = this.props.data,
           suara = data.totalScoresEachCandidate[id],
+          suaraPerDaerah = data.candidatesScore[id],
           persentase = numeral(suara/data.totalScores).format('0.00%');
+
+    const rataanSuara = _.mean(suaraPerDaerah),
+          suaraTertinggi = _.max(suaraPerDaerah),
+          suaraTerendah = _.min(suaraPerDaerah),
+          daerahSuaraTertinggi = data.subregions[suaraPerDaerah.indexOf(suaraTertinggi)],
+          daerahSuaraTerendah = data.subregions[suaraPerDaerah.indexOf(suaraTerendah)];
+
     
     return (
       <div className="small-12 medium-4 columns" data-equalizer-watch="card-parent">
@@ -52,6 +64,11 @@ export default class CandidateCard extends Component {
                 </h4>
               </div>
             </div>
+            <dl>
+              <dt>Rataan suara</dt><dd>{this.formatNumber(rataanSuara)}</dd>
+              <dt>Suara tertinggi</dt><dd>{this.formatNumber(suaraTertinggi)} dari <span className="capitalize">{daerahSuaraTertinggi.toLowerCase()}</span></dd>
+              <dt>Suara terendah</dt><dd>{this.formatNumber(suaraTerendah)} dari <span className="capitalize">{daerahSuaraTerendah.toLowerCase()}</span></dd>
+            </dl>
         </div>
       </div>
       </div>
