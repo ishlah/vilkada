@@ -81,7 +81,7 @@ export default class ResultSplash extends Component {
 
     return (
       <div className="result-splash"
-        style={{backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url(/images/bogor_palace_front.jpg)'}}>
+        style={{backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url(./images/bogor_palace_front.jpg)'}}>
         <div className="splash-infographic">
           <div className="splash-header">
             <h1 className="splash-title">{this.props.region}</h1>
