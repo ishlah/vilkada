@@ -20,7 +20,11 @@
     "test:watch": "karma start --autoWatch=true --singleRun=false"
   },
   "repository": "https://github.com/ishlah/vilkada/",
-  "keywords": ["pilkada api", "vilkada", "reactjs"],
+  "keywords": [
+    "pilkada api",
+    "vilkada",
+    "reactjs"
+  ],
   "author": "Muhamad Ishlah",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
@@ -72,6 +76,7 @@
     "normalize.css": "^4.0.0",
     "numeral": "^1.5.3",
     "react": "^15.0.0",
+    "react-autosuggest": "^3.7.4",
     "react-chartjs": "^0.7.3",
     "react-dom": "^15.0.0",
     "react-redux": "^4.4.5",

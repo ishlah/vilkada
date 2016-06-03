@@ -5,7 +5,7 @@ import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import SearchBar from './SearchBar';
+import SearchSuggestion from './SearchSuggestion';
 import Result from './Result';
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
             <img src="images/vilkada_logo_white.png" alt="Vilkada Logo White" />
             <h1>Vilkada</h1>
             <p className="lead">Visualisasi sederhana hasil Pilkada Langsung 2015</p>
-            <SearchBar />
+            <SearchSuggestion />
           </div>
         </div>
 

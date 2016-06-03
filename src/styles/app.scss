@@ -159,9 +159,9 @@ h6{font-size: 12px }
 
 .input-group {
   input {
-    border-top-left-radius: 20px !important;
-    border-bottom-left-radius: 20px !important;
+    border-radius: 20px !important;
     padding-left: 1rem !important;
+    text-transform: uppercase;
   }
   .button {
     border-top-right-radius: 20px !important;
@@ -170,6 +170,32 @@ h6{font-size: 12px }
   }
 }
 
+.react-autosuggest__suggestions-container {
+  background-color: #eee;
+  color: #000;
+  text-align: left;
+  list-style: none;
+  position: absolute;
+  top: 42px;
+  left: -5px;
+  right: 15px;
+  box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: darkgray;
+  border-radius: 3px;
+  max-height: 205px;
+  overflow-y: auto;
+}
+
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.react-autosuggest__suggestion--focused {
+  background-color: $primary-color;
+  color: #fff;
+
+}
 
 .capitalize { text-transform: capitalize; }
 
